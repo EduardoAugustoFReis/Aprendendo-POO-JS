@@ -1,12 +1,18 @@
-import { BankClient } from "./BankClient.js"; 
+import { BankClient } from "../Employees/BankClient.js"; 
 
-export class CurrentAccount {
+// abstract class
+export class Account {
 
-  static numberAccountCreated = 0;
-  bankBranch; // agencia
-  
-  _client;
-  _bankBalance = 0; // #saldo = 0 | private field "_xxx";
+  constructor(initialBankBalance, client, bankBranch){
+    
+    if(this.constructor === Account){
+      throw new Error("You don't must create instance of Account class, because it's an abstract class.");
+    };
+
+    this._bankBalance = initialBankBalance;
+    this._client = client;
+    this._bankBranch = bankBranch;
+  };
 
   set client(newValue){
     if(newValue instanceof BankClient) {
@@ -22,21 +28,22 @@ export class CurrentAccount {
     return this._bankBalance;
   };
 
-  constructor(bankBranch, client){
-    this.bankBranch = bankBranch;
-    this.client = client;
-    CurrentAccount.numberAccountCreated ++;
-  }
-
+  // abstract method 
   withdrawMoney(value){
-    if(this._bankBalance <= value ) {
+    throw new Error("Withdraw money from Account class, is abstract");
+  };
+
+  _withdrawMoney(value, tax){
+    const valueWithdraw = tax * value;
+
+    if(this._bankBalance <= valueWithdraw ) {
       console.log(`Operation denied. You don't have enough balance, your current balance is ${this._bankBalance} R$.`);
       return;
     };
 
-    this._bankBalance -= value;
-    console.log("Amount withdrawn: " + value + " R$");
-    return value; 
+    this._bankBalance -= (valueWithdraw).toFixed(2);
+    console.log(`Amount withdrawn: ${valueWithdraw.toFixed(2)} R$. Your current balance is ${this._bankBalance} R$`);
+    return valueWithdraw; 
   };
 
   deposit(value){

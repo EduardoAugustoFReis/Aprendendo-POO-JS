@@ -1,8 +1,5 @@
 export class BankClient {
 
-  name;
-  _cpf;
-
   get cpf(){
     return this._cpf;
   }

@@ -1,10 +1,12 @@
-import { BankClient } from "./BankClient.js";
-import { CurrentAccount } from "./CurrentAccount.js";
+import { Manager} from "./Employer/Manager.js";
+import { Director } from "./Employer/Director.js";
+import { AuthenticationSystem } from "./AuthenticationSystem.js";
 
-const client = new BankClient("Alex", "999999999-99");
-const client2 = new BankClient("Alice", "000000000-00");
+const director = new Director("Alex", 8000, 123456789);
+director.CreatePassword("123456");
 
-const account = new CurrentAccount(301, client);
-const account2 = new CurrentAccount(101, client2);
+const manager = new Manager("Alice", 4000, 999999999);
 
-console.log(CurrentAccount.numberAccountCreated);
+const isOn = AuthenticationSystem.login(director, "123456");
+
+console.log(isOn);
