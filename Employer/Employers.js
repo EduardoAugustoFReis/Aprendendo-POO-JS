@@ -9,12 +9,12 @@ export class Employers{
     this._password;
   }
 
-  get password(){
-    return this._password;
+  auth(password){
+    return password == this._password;
   };
   
   CreatePassword(password){
     this._password = password;
-  }
+  };
 
 }

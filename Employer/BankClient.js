@@ -4,8 +4,13 @@ export class BankClient {
     return this._cpf;
   }
 
-  constructor(name, cpf){
+  constructor(name, cpf, password){
     this.name = name;
     this._cpf = cpf;
+    this._password = password;
+  }
+  
+  auth(){
+    return true;
   }
 };
